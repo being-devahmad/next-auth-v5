@@ -4,6 +4,7 @@ import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { User } from "./models/user-model";
+import { authConfig } from "./auth.config";
 
 
 export const {
@@ -12,6 +13,19 @@ export const {
     signIn,
     signOut,
 } = NextAuth({
+    ...authConfig,
+    // callbacks: {
+    //     async jwt({ token, user }) {
+    //         if (user) {
+    //             token.id = user.id;
+    //         }
+    //         return token;
+    //     },
+    //     async session({ session, token }) {
+    //         session.user.id = token.id;
+    //         return session;
+    //     },
+    // },
     providers: [
         CredentialsProvider({
             credentials: {
@@ -68,21 +82,6 @@ export const {
             },
         }),
     ],
-    session: {
-        strategy: 'jwt',
-    },
-    callbacks: {
-        async jwt({ token, user }) {
-            if (user) {
-                token.id = user.id;
-            }
-            return token;
-        },
-        async session({ session, token }) {
-            session.user.id = token.id;
-            return session;
-        },
-    },
 });
 
 

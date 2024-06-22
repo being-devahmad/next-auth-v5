@@ -16,7 +16,6 @@ export default function LoginForm() {
         try {
             const formData = new FormData(e.currentTarget);
             const response = await doCredentialsLogin(formData);
-            console.log("response", response);
 
             if (response?.error) {
                 setError(response.error.message);

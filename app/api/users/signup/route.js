@@ -6,7 +6,7 @@ import { User } from "@/models/user-model";
 export const POST = async (request) => {
     const { username, email, password } = await request.json();
 
-    console.log(username, email, password);
+    // console.log(username, email, password);
 
     // Create a DB Connection
     await dbConnect();

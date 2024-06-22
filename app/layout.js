@@ -4,6 +4,7 @@ import { NextUiProvider } from "@/providers/next-ui-provider";
 import NavbarComponent from "@/components/navbar";
 import FooterComponent from "@/components/footer";
 import { dbConnect } from "@/lib/dbConnect";
+import { auth } from "@/auth";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -15,16 +16,20 @@ export const metadata = {
     description: "Just write your ideass",
 };
 
+
 export default async function RootLayout({ children }) {
 
     const conn = await dbConnect()
+    const session = await auth()
+    const userFound = session?.user?.email
+    console.log("session-->" + userFound)
 
     return (
 
         <html lang="en">
             <body className={poppins.className}>
                 <NextUiProvider>
-                    <NavbarComponent />
+                    <NavbarComponent userFound={userFound} />
                     {children}
                     <FooterComponent />
                 </NextUiProvider>

@@ -6,7 +6,7 @@ export async function GET(req) {
     try {
         await dbConnect()
         const users = await User.find({})
-        console.log(users)
+        // console.log(users)
 
         return NextResponse.json({
             message: "Users fetched",
